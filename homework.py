@@ -1,46 +1,49 @@
-#Create a tax calculator
 def calculate_net_salary():
     try:
-        # Read gross salary input
-        gross_salary = float(input("Enter the gross salary: "))
+        gross_salary = input("Enter the gross salary: ")
+        gross_salary = float(gross_salary)
 
-        # Read number of children input
-        num_children = int(input("Enter the number of children: "))
-
-        # Validate inputs
         if gross_salary < 0:
-            raise ValueError("Gross salary cannot be negative.")
+            print("Gross salary cannot be negative.")
+            return
+
+    except ValueError:
+        print("Invalid input: Gross salary must be a number.")
+        return
+
+    try:
+
+        num_children = input("Enter the number of children: ")
+        num_children = int(num_children)
+
         if num_children < 0:
-            raise ValueError("Number of children cannot be negative.")
+            print("Number of children cannot be negative.")
+            return
 
-        # Determine base tax rate based on gross salary
-        if gross_salary < 1000:
-            tax_rate = 10  # 10%
-        elif gross_salary < 2000:
-            tax_rate = 12  # 12%
-        elif gross_salary < 4000:
-            tax_rate = 14  # 14%
-        else:
-            tax_rate = 18  # 18%
-
-        # Calculate child tax cut based on gross salary
-        if gross_salary < 2000:
-            child_tax_cut = 1 * num_children  # 1% per child
-        else:
-            child_tax_cut = 0.5 * num_children  # 0.5% per child
-
-        # Adjust the effective tax rate
-        effective_tax_rate = max(tax_rate - child_tax_cut, 0)  # Tax rate cannot be negative
-
-        # Calculate net salary
-        net_salary = gross_salary * (1 - effective_tax_rate / 100)
-
-        # Print the net salary
-        print(f"Net salary: {net_salary:.2f}")
-
-    except ValueError as e:
-        print(f"Invalid input: {e}")
+    except ValueError:
+        print("Invalid input: Number of children must be an integer.")
+        return
 
 
-# Call the function
+    if gross_salary < 1000:
+        tax_rate = 10
+    elif gross_salary < 2000:
+        tax_rate = 12
+    elif gross_salary < 4000:
+        tax_rate = 14
+    else:
+        tax_rate = 18
+
+
+    if gross_salary < 2000:
+        child_tax_cut = 1 * num_children
+    else:
+        child_tax_cut = 0.5 * num_children
+
+    effective_tax_rate = max(tax_rate - child_tax_cut, 0)
+
+    net_salary = gross_salary * (1 - effective_tax_rate / 100)
+
+    print(f"Net salary: {net_salary:.2f}")
+
 calculate_net_salary()
